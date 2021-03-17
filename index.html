@@ -12,11 +12,14 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/c397284221.js" crossorigin="anonymous"></script>
 
-    <title>Saal guests</title>
+    <title>Invités</title>
     <link rel="stylesheet" href="./style.css">
 
 </head>
@@ -31,19 +34,19 @@
             <ul id="slide-out" class="side-nav">
                 <li><a href="index.html"><i class="fa fa-list"> </i> Liste des invités </a> </li>
                 <li><a href="#" data-toggle="modal" data-target="#addNewguestModal" class="addNewguest"><i class="fa fa-plus-circle"></i> Enregistrer un invité </a></li>
-                <li><a href="#" data-toggle="modal" class="addNewguest"><i class="fa fa-plus-circle"></i> Organisation des tables</a></li>
-                <li><a href="#" data-toggle="modal" class="addNewguest"><i class="fa fa-plus-circle"></i> Accueillir et installer</a></li>
+                <li><a href="#" data-toggle="modal" class="addNewguest"><i class="fas fa-tablets"></i> Organisation des tables</a></li>
+                <li><a href="#" data-toggle="modal" class="addNewguest"><i class="fas fa-person-booth"></i> Accueillir et installer</a></li>
                 <li><a href="#" data-toggle="modal" class="addNewguest"><i class="fa fa-cog"></i> Paramètres</a></li>
                 <li><a href="#aboutUsModal" class="modal-trigger" data-target="#aboutUsModal"><i class="fa fa-question-circle-o"></i> À propos de l'appli </a></li>
             </ul>
             <!-- this handles the full-width navbar -->
 
-            <div id="weddingHeadInfos" class="center">
-                <a href="#" class="themecolor1" id="bridesNames">Ivan & Sandra</a> Just for his glory
+            <div id="weddingHeadInfos">
+
             </div>
             <ul id="nav-mobile" class="right hide-on-med-and-down lighten-1 themecolor2">
                 <li class=""><a href="#"><i class="fa fa-list"> </i> Liste des invités</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#addNewguestModal" class="addNewguest"><i class="fa fa-plus-circle"></i> Ajouter un invité</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#addNewguestModal" class="addNewguest"><i class="fas fa-tablets"></i> Gestion des tables</a></li>
                 <li><a href="#aboutUsModal" class="modal-trigger" data-target="#aboutUsModal"><i class="fa fa-cog"></i> Paramètres </a></li>
             </ul>
         </div>
@@ -53,7 +56,7 @@
     <div class="container-fluid">
         <!-- firstPart: handles the floating button -->
         <div class="fixed-action-btn vertical">
-            <a class="btn-floating btn-large themecolor2  "><i class="fa fa-bars fa-4x"></i></a>
+            <a class="btn-floating btn-large themecolor2 "><i class="fa fa-bars fa-4x"></i></a>
             <ul>
                 <li><a class="btn-floating blue darken-2 modal-trigger" href="#aboutUsModal"><i class="fa fa-cog"></i></a></li>
                 <li><a class="btn-floating themecolor1 darken-2"><i class="fa fa-list"></i></a></li>
@@ -73,63 +76,158 @@
                             <input id="search" type="search" required class="autocomplete" placeholder="Rechercher dans la liste...">
                         </div>
                     </form>
-                    <h4 class="card-title themecolor1-text"> Invités enregistrés</h4>
-                    <ul class="list-group" id="guestDisplay">
-                        <!-- codes  here supplied via JS-->
-                    </ul>
+                    <!-- codes  here supplied via JS-->
+
+                    <div class="row justify-content-center">
+                        <button class="btn btn-outline-success addNewguest themecolor1" id="addNewguest1" data-toggle="modal" data-target="#addNewguestModal">Ajouter un invité</button>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto my-2">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Table</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>M. DJONKEP Salomon</td>
+                                        <td>Table 5: JOIE</td>
+                                        <td>
+                                            <ul class="list-inline m-0">
+                                                <li class="list-inline-item btn-outline-success">
+                                                    <i class="fas fa-edit"></i>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <i class="fas fa-trash-alt btn-outline-danger"></i>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="table-success">
+                                        <td>Mme NANKAM Gabrielle</td>
+                                        <td>Table 3: PAIX</td>
+                                        <td>
+                                            <ul class="list-inline m-0">
+                                                <li class="list-inline-item btn-outline-success">
+                                                    <i class="fas fa-edit"></i>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <i class="fas fa-trash-alt btn-outline-danger"></i>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr class="table-danger">
+                                        <td>NOM hasardeux</td>
+                                        <td>Table 8: SERVICE</td>
+                                        <td>
+                                            <ul class="list-inline m-0">
+                                                <li class="list-inline-item btn-outline-success">
+                                                    <i class="fas fa-edit"></i>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <i class="fas fa-trash-alt btn-outline-danger"></i>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+
+                                    </tr>
+                                    <tr class="table-warning">
+                                        <td>Warning</td>
+                                        <td>Refs</td>
+                                        <td>
+                                            <ul class="list-inline m-0">
+                                                <li class="list-inline-item btn-outline-success">
+                                                    <i class="fas fa-edit"></i>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <i class="fas fa-trash-alt btn-outline-danger"></i>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <button class="btn btn-outline-success addNewguest" id="addNewguest" data-toggle="modal" data-target="#addNewguestModal">Ajouter un invité</button>
             </div>
         </div>
         <!-- 3rdPart: responds to the main modal call -->
         <div class="modal fade" id="addNewguestModal" tabindex="-1" role="dialog" aria-labelledby="addNewguestModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content themecolor2">
                     <!-- header for the modal -->
-                    <div class="modal-header">
-                        <h4 class="modal-title left" id="addNewguestModalLabel">Enregistrer un invité</h4>
+                    <div class="modal-header themecolor1 white-text">
+                        <h5 class="modal-title left" id="addNewguestModalLabel">Enregistrer un invité</h5>
                     </div>
                     <!-- body of the modal -->
-                    <div class="modal-body">
+                    <div class="modal-body white">
                         <form class="form-horizontal" role="form" id="modalForm">
-                            <div class="form-group">
-                                <label for="guestName">Nom de l'invité(e)</label>
-                                <input id="guestName" type="text" />
+
+                            <div class="form-group mb-4">
+                                <label for="guestTitle" class="themecolor1-text">Titre</label>
+                                <select id="guestTitle" class="custom-select">
+                                    <option value="M.">Monsieur</option>
+                                    <option value="Mme">Madame</option>
+                                    <option value="Mme">Mademoiselle</option>
+                                    <option value="Autre">Autre</option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="guestDescription">Notes sur l'invité (éventuellement)</label>
-                                <textarea id="guestDescription" type="text" style="height: 100px"></textarea>
+                                <label for="guestName" class="themecolor1-text">NOM et Prénom</label>
+                                <input id="guestName" type="text" style="font-size: 1.1em;" />
                             </div>
                             <div class="form-group mb-4">
                                 <label for="guestCategory">Catégorie</label>
                                 <select id="guestCategory" class="custom-select">
-                <optgroup label="Invités du marié">
-                  <option value="Business guests">Famille proche du marié</option>
-                  <option value="Calender">Famille large du marié</option>
-                  <option value="Photo Prints">Amis du marié</option>
-                  <option value="Wall Decors">Eglise du marié (cadre spirituel)</option>
-                  <option value="Photo Gifts">Collègues du marié</option>
-                  <option value="Photo Prints">Connaissances du marié</option>
-                </optgroup>
-                <optgroup label="Invités de la mariée">
-                  <option value="Business guests">Famille proche de la mariée</option>
-                  <option value="Calender">Famille large de la mariée</option>
-                  <option value="Photo Prints">Ami(e)s de la mariée</option>
-                  <option value="Wall Decors">Eglise de la mariée (cadre spirituel)</option>
-                  <option value="Photo Gifts">Collègues de la mariée</option>
-                  <option value="Photo Prints">Connaissances de la mariée</option>
-                </optgroup>
+                                    <optgroup label="Invités du marié">
+                                    <option value="ManCloseFam">Famille proche du marié</option>
+                                    <option value="ManBroadFam">Famille large du marié</option>
+                                    <option value="ManBuddies">Amis du marié</option>
+                                    <option value="ManChurch">Eglise du marié (cadre spirituel)</option>
+                                    <option value="ManColleagues">Collègues du marié</option>
+                                    <option value="ManPeople">Connaissances du marié</option>
+                                    </optgroup>
+                                    <optgroup label="Invités de la mariée">
+                                    <option value="WomanCloseFam">Famille proche de la mariée</option>
+                                    <option value="WomanBroadFam">Famille large de la mariée</option>
+                                    <option value="WomanBuddies">Ami(e)s de la mariée</option>
+                                    <option value="WomanChurch">Eglise de la mariée (cadre spirituel)</option>
+                                    <option value="WomanColleagues">Collègues de la mariée</option>
+                                    <option value="WomanPeople">Connaissances de la mariée</option>
+                                    </optgroup>
 
-                <optgroup label="Autres">
-                  <option value="Sample Set">Connaissances communes aux deux mariés</option>
-                  <option value="Sample Set">Autres</option>
-                </optgroup>
-              </select>
+                                    <optgroup label="Autres">
+                                    <option value="KnownByBoth">Connaissances communes aux deux mariés</option>
+                                    <option value="Other">Autres</option>
+                                    </optgroup>
+                                 </select>
+                            </div>
+
+                            <div class="form-group mb-4" id="chooseGuestTable">
+                                <label for="guestTable">Table réservée</label>
+                                <select id="guestTable" class="custom-select">
+                                    
+                                    <option value="1">Table 1: AMOUR</option>
+                                    <option value="2">Table 2: FRATERNITE</option>
+                                    <option value="3">Table 3: PAIX</option>
+                                    
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="guestDescription">Notes sur l'invité (éventuellement)</label>
+                                <textarea id="guestDescription" type="text" style="height: 50px"></textarea>
                             </div>
                             <div class="modal-footer align-content-center" id="modalFooter">
-                                <button type="button" class="btn btn-outline-danger btn-sm m-2" data-dismiss="modal" id="modalClose"><i class="fa fa-close"></i> Close
+                                <button type="button" class="btn btn-outline-danger btn-sm m-2" data-dismiss="modal" id="modalClose"><i class="fa fa-close"></i> Fermer
               </button>
-                                <button type="button" class="btn btn-outline-success btn-sm m-2" id="modalSubmit"><i class="fa fa-save"></i> Add Entry </button>
+                                <button type="button" class="btn btn-outline-success btn-sm m-2" id="modalSubmit"><i class="fa fa-save"></i> OK</button>
                             </div>
                         </form>
                     </div>
@@ -141,43 +239,44 @@
         <div id="aboutUsModal" class="modal bottom-sheet">
             <div class="modal-content">
 
-                <p class="h5">Saal Digital - Ihr Partner für den professionellen Auftritt Werbeprodukte in HighEnd Qualität</p>
+                <p class="h5">Application développée par King Josaphat Chewa pour la réception du mariage de Ivan Seundjeu et Sandra Nouetagni (27 mars 2021). <br><br><b>Contact:</b> (+237) 655 27 50 64</p>
             </div>
         </div>
+    </div>
 
-        <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                $(".button-collapse").sideNav();
-                $("#aboutUsModal").modal();
-                $("input.autocomplete").autocomplete({
-                    data: {
-                        "Photo Plaques": null,
-                        "FineArt Prints": null,
-                        "Retro prints": null,
-                        "Photo Prints": null,
-                        "Mini Reporello": null,
-                        "Card": null,
-                        "Folded Card(Up Down)": null,
-                        "Folded Card(Left Right)": null,
-                        "Double Folded Card": null,
-                        "Memorial Card": null,
-                        "Wall Decors": null,
-                        "Alu-Dibond": null,
-                        "Gallery Print": null,
-                        "Floating Frame": null,
-                        "Envelopes": null
-                    },
-                    limit: 7,
-                    minLength: 1
-                });
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin=" anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".button-collapse").sideNav();
+            $("#aboutUsModal").modal();
+            $("input.autocomplete").autocomplete({
+                data: {
+                    "Photo Plaques": null,
+                    "FineArt Prints": null,
+                    "Retro prints": null,
+                    "Photo Prints": null,
+                    "Mini Reporello": null,
+                    "Card": null,
+                    "Folded Card(Up Down)": null,
+                    "Folded Card(Left Right)": null,
+                    "Double Folded Card": null,
+                    "Memorial Card": null,
+                    "Wall Decors": null,
+                    "Alu-Dibond": null,
+                    "Gallery Print": null,
+                    "Floating Frame": null,
+                    "Envelopes": null
+                },
+                limit: 7,
+                minLength: 1
             });
-        </script>
-        <!-- partial -->
-        <script src="./script.js"></script>
+        });
+    </script>
+    <!-- partial -->
+    <script src="./script.js"></script>
 
 </body>
 

@@ -13,20 +13,8 @@ body {
     font-size: 1.1em;
 }
 
-.themecolor1 {
-    background-color: var(--themecolor1);
-}
-
-.themecolor1-text {
-    color: var(--themecolor1);
-}
-
-.themecolor2 {
-    background-color: var(--themecolor2);
-}
-
-.themecolor2-text {
-    color: var(--themecolor2);
+label {
+    font-weight: bold;
 }
 
 #weddingHeadInfos {
