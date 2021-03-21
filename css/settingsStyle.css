@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+:root {
+    --themecolor1: #1e3f5a;
+    --themecolor2: #f5ab90;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1em;
+}
+
+label {
+    font-weight: bold;
+}
+
+#weddingHeadInfos {
+    display: inline-flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+#search a:hover {
+    text-decoration: none;
+    color: navy;
+    font-weight: bold;
+}
+
+#slide-out li a:hover {
+    color: navy;
+    font-weight: bold;
+}
+
+.divCenter {
+    margin: auto;
+    width: 50%;
+}
+
+.modal-body .form-horizontal {
+    width: 90%;
+}

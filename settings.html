@@ -3,23 +3,27 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>CodePen - CRUD App with Vanilla JS &amp; HTML5 LocalStorage</title>
+    <title>Paramètres</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <!-- <link rel="icon" href="https://res.cloudinary.com/ethelbert007/image/upload/v1511873622/logo_geyrq5.jpg"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" />
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script src="https://kit.fontawesome.com/c397284221.js" crossorigin="anonymous"></script>
 
-    <title>Invités</title>
+
+    <!-- <link rel="icon" href="https://res.cloudinary.com/ethelbert007/image/upload/v1511873622/logo_geyrq5.jpg"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
     <link rel="stylesheet" href="./css/settingsStyle.css" />
 </head>
 
@@ -29,68 +33,33 @@
     <nav>
         <div class="nav-wrapper z-depth-5 themecolor1 darken-2">
             <!-- this handles the sliding bars -->
-            <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="fa fa-bars fa-2x"></i
-        ></a>
+            <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="fa fa-bars fa-2x"></i></a>
             <ul id="slide-out" class="side-nav">
-                <li>
-                    <a href="./guests.html"><i class="fas fa-person-booth"> </i> Invités
-            </a>
-                </li>
-                <li>
-                    <a href="./tables.html"><i class="fas fa-tablets"></i> Tables</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-cog"></i> Paramètres</a>
-                </li>
-                <li>
-                    <a href="#aboutUsModal" class="modal-trigger" data-target="#aboutUsModal"><i class="fa fa-question-circle-o"></i> À propos
-            </a>
-                </li>
+                <li><a href="./guests.html"><i class="fas fa-person-booth"> </i> Invités </a> </li>
+                <li><a href="./tables.html"><i class="fas fa-tablets"></i> Tables</a></li>
+                <li><a href="./settings.html"><i class="fa fa-cog"></i> Paramètres</a></li>
+                <li><a href="#aboutUsModal" class="modal-trigger" data-target="#aboutUsModal"><i class="fa fa-question-circle-o"></i> À propos </a></li>
             </ul>
             <!-- this handles the full-width navbar -->
 
-            <div id="weddingHeadInfos"></div>
+            <div id="weddingHeadInfos">
+
+            </div>
             <ul id="nav-mobile" class="right hide-on-med-and-down lighten-1 themecolor2">
-                <li class="">
-                    <a href="./guests.html"><i class="fa fa-list"> </i> Invités</a>
-                </li>
-                <li>
-                    <a href="./tables.html"><i class="fas fa-tablets"></i> Tables</a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-cog"></i> Paramètres </a>
-                </li>
+                <li class=""><a href="#"><i class="fa fa-list"> </i> Invités</a></li>
+                <li><a href="./tables.html"><i class="fas fa-tablets"></i> Tables</a></li>
+                <li><a href="./settings.html"><i class="fa fa-cog"></i> Paramètres </a></li>
             </ul>
         </div>
     </nav>
 
     <!-- This is the main body<div> container section -->
     <div class="container-fluid">
-        <!-- firstPart: handles the floating button -->
-        <div class="fixed-action-btn vertical">
-            <a class="btn-floating btn-large themecolor2"><i class="fa fa-bars fa-4x"></i
-        ></a>
-            <ul>
-                <li>
-                    <a class="btn-floating blue darken-2 modal-trigger" href="#"><i class="fa fa-cog"></i
-            ></a>
-                </li>
-                <li>
-                    <a class="btn-floating themecolor1 darken-2" href="./tables.html"><i class="fas fa-tablets"></i
-            ></a>
-                </li>
-                <li>
-                    <a class="btn-floating green darken-2 addNewguest" data-toggle="modal" data-target="#addNewguestModal"><i class="fa fa-plus"></i
-            ></a>
-                </li>
-            </ul>
-        </div>
 
-        <!-- 2ndPart: handles the guestDashboard display -->
         <div class="mx-auto">
             <div class="card border-primary">
                 <div class="card-header themecolor2" id="usernameSpan">
-                    <h3 id="h3header">Paramètres</h3>
+                    <h3 id="h3header" style="font-weight: bold;">Paramètres</h3>
                 </div>
                 <div class="card-body text-primary" id="settingsArea">
                     <form>
@@ -137,7 +106,7 @@
                             <input name="maxGuestsPerTable" type="number" min="2" max="100" value="10" step="1" class="form-control"
                 id="inputNbMaxPerTable">
               </div>
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" class="btn btn-primary themecolor1" id="btnSaveModifs">
                 Enregistrer les modifications
               </button>
             </form>
@@ -172,13 +141,16 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script>
-      $(document).ready(function () {
-        $(".button-collapse").sideNav();
-        $("#aboutUsModal").modal();
-      });
-    </script>
+<script>
+    $(document).ready(function () {
+    $(".button-collapse").sideNav();
+    $("#aboutUsModal").modal();
+    });
+</script>
+    
+<script src="./js/notify.min.js"></script>
     <!-- partial -->
+    <script src="./js/global.js"></script>
     <script src="./js/settingsScript.js"></script>
   </body>
 </html>

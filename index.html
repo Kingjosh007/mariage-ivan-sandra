@@ -8,24 +8,17 @@
 </head>
 
 <body>
-
+    <script src="./js/global.js"></script>
     <script>
-        function getFromLocalStorage(keyString) {
-            let value;
-            if (localStorage.getItem(keyString) === null) {
-                value = [];
-            } else {
-                value = JSON.parse(localStorage.getItem("todos"));
 
-            }
-            if (typeof value === "string")
-                return [value];
-            return value;
-        }
 
         let guests = getFromLocalStorage("guests");
-        if (guests.length == 0)
+        if (guests == null)
+        {
+            for(let route of majorRoutes)
+                getAndCacheVar(route);
             location.assign("./settings.html");
+        }
         else
             location.assign("./guests.html");
     </script>
