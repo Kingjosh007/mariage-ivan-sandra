@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - CRUD App with Vanilla JS &amp; HTML5 LocalStorage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- <link rel="icon" href="https://res.cloudinary.com/ethelbert007/image/upload/v1511873622/logo_geyrq5.jpg"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/3.23.1/tagify.css" integrity="sha512-1CG2eaZ3B/p7OqthY2eBpVCD2A+0b2T7aEXfMnr4FqZFoKddxURdxcD8EcKI66qthtkGAWA/Hnwy7ceNHcHJKw==" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin=" anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
+
+    <script src="https://kit.fontawesome.com/c397284221.js" crossorigin="anonymous"></script>
+
+    <title>Invités</title>
+    <link rel="stylesheet" href="./css/tablesStyle.css">
+
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <!-- This is the main navbar section -->
+    <nav>
+        <div class="nav-wrapper z-depth-5 themecolor1 darken-2">
+            <!-- this handles the sliding bars -->
+            <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="fa fa-bars fa-2x"></i></a>
+            <ul id="slide-out" class="side-nav">
+                <li class="themecolor2"><a href="./guests.html"><i class="fas fa-person-booth"> </i> Invités </a> </li>
+                <li class="themecolor2"><a href="#"><i class="fas fa-tablets"></i> Tables</a></li>
+                <li class="themecolor2"><a href="./settings.html"><i class="fa fa-cog"></i> Paramètres</a></li>
+                <li class="themecolor2"><a href="#aboutUsModal" class="modal-trigger" data-target="#aboutUsModal"><i class="fa fa-question-circle-o"></i> À propos </a></li>
+            </ul>   
+            <!-- this handles the full-width navbar -->
+
+            <div id="weddingHeadInfos"></div>
+            
+            <ul id="nav-mobile" class="right hide-on-med-and-down lighten-1 themecolor2">
+                <li class=""><a href="#"><i class="fa fa-list"> </i> Invités</a></li>
+                <li><a href="./tables.html"><i class="fas fa-tablets"></i> Tables</a></li>
+                <li><a href="./settings.html"><i class="fa fa-cog"></i> Paramètres </a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <!-- This is the main body<div> container section -->
+    <div class="container-fluid">
+
+        <!-- 2ndPart: handles the tableDashboard display -->
+        <div class="mx-auto justify-content-center">
+            <div class="card border-primary">
+                <div class="card-header themecolor2" id="usernameSpan">
+                    <h3 id="h3header">Toutes les tables</h3>
+                </div>
+                <div class="card-body text-primary" id="tableDashboard">
+                    <!-- codes  here supplied via JS-->
+
+                    <div class="d-flex justify-content-between mb-4">
+                        <div class="p-1 themecolor1-text"><span class="text-light bg-dark p-1 rounded"> Total </span> <b class="ml-1 themecolor1-text"> 35</b></div>
+                        <div class="p-1 themecolor1-text"><span class="text-dark bg-warning p-1 rounded"> Pleinement réservées </span><b class="ml-1 themecolor1-text"> 10</b></div>
+                        <div class="p-1 themecolor1-text"><span class="bg-success text-light p-1 rounded"> Pleines</span><b class="ml-1 themecolor1-text"> 14</b></div>
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <button class="btn btn-outline-success addNewtable themecolor1" id="addNewtable1" data-toggle="modal" data-target="#addNewTableModal">Ajouter une table</button>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto my-2">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 3rdPart: responds to the main modal call -->
+        <div class="modal fade" id="addNewTableModal" tabindex="-1" role="dialog" aria-labelledby="addNewTableModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content themecolor2">
+                    <!-- header for the modal -->
+                    <div class="modal-header themecolor1">
+                        <h5 class="modal-title left text-light" id="addNewTableModalLabel">Ajouter une table</h5>
+                    </div>
+                    <!-- body of the modal -->
+                    <div class="modal-body white">
+                        <form class="form-horizontal" role="form" id="modalForm">
+
+                            <div class="form-group">
+                                <label for="tableNum" class="themecolor1-text">Numéro de la table</label>
+                                <input id="tableNum" name="tableNum" type="number" value="1" readonly style="font-size: 1.1em;" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tableName" class="themecolor1-text">Nom de la table</label>
+                                <input id="tableName" name="tableName" type="text" style="font-size: 1.1em;" />
+                            </div>
+
+        
+                            <div class="form-group mb-4">
+                                <label for="tableMaxSeats" class="themecolor1-text">Nb de places max.</label>
+                                <input name="tableMaxSeats" type="number" min="2" max="100" value="10" step="1" class="form-control"
+                id="inputTableMaxSeats">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tableGuestsIds" class="themecolor1-text">Invités destinés à cette table</label>
+                                <textarea name="tableGuestsIds" class="form-control" id="tableGuestsIdsTextArea">
+                                </textarea>
+                            </div>
+                            
+                            
+                            <div class="modal-footer align-content-center" id="modalFooter">
+                                <button class="btn btn-outline-danger btn-sm mr-2" data-dismiss="modal" id="modalClose"><i class="fa fa-close"></i> Fermer
+                                </button>
+                                <button type="submit" class="btn btn-outline-success btn-sm" id="saveNewTableBtn"><i class="fa fa-save"></i>Enregistrer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4thPart: responds to the About Us modal call -->
+        <div id="aboutUsModal" class="modal bottom-sheet">
+            <div class="modal-content">
+
+                <p class="h5">Application développée par King Josaphat Chewa pour la réception du mariage de Ivan Seundjeu et Sandra Nouetagni (27 mars 2021). <br><br><b>Contact:</b> (+237) 655 27 50 64</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin=" anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    <!-- partial -->
+
+    <script src="./js/notify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/3.23.1/tagify.min.js" integrity="sha512-jb/SYEPmc1tGaJ3Yu6CZaOBhn8sqTpgTqVcXUm4udHGaUsBIOj6DsIc6aXZpsvXhtexnmIowmOVBHKuIwyB2Rw==" crossorigin="anonymous"></script>
+   
+    <script src="./js/global.js"></script>
+    
+
+    <script src="./js/tablesScript.js"></script>
+
+</body>
+
+</html>

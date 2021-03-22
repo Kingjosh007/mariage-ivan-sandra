@@ -25,7 +25,7 @@ function getAndCacheVar(varName)
 
 function updateWeddingsInfos() {
   let json = getFromLocalStorage("weddingInfos");
-  weddingHeadInfos.innerHTML = `<span id="wedsNames" style="margin-left: 50px;" class="text-white">${json.groomsName + " & " + json.maidsName} <i class="fa fa-heart" style="color: red; margin-left: 10px;"></i> </span>`;
+  $("#weddingHeadInfos").html(`<span id="wedsNames" style="margin-left: 50px;" class="text-white">${json.groomsName + " & " + json.maidsName} <i class="fa fa-heart" style="color: red; margin-left: 10px;"></i></span>`);
 }
 
 function updateColorThemes() {
@@ -33,22 +33,22 @@ function updateColorThemes() {
       let color1 = json.themeColor1;
       let color2 = json.themeColor2;
 
-      themeColor1Elts = document.querySelectorAll(".themecolor1");
-      themeColor1TxtElts = document.querySelectorAll(".themecolor1-text");
-      themeColor2Elts = document.querySelectorAll(".themecolor2");
-      themeColor2TxtElts = document.querySelectorAll(".themecolor2-text");
+     var themeColor1Elts = document.querySelectorAll(".themecolor1");
+      var themeColor1TxtElts = document.querySelectorAll(".themecolor1-text");
+      var themeColor2Elts = document.querySelectorAll(".themecolor2");
+      var themeColor2TxtElts = document.querySelectorAll(".themecolor2-text");
 
       for (let i = 0; i < themeColor1Elts.length; i++) {
         themeColor1Elts[i].style.backgroundColor = color1;
       }
       for (let i = 0; i < themeColor1TxtElts.length; i++) {
-        themeColor1Elts[i].style.color = color1;
+        themeColor1TxtElts[i].style.color = color1;
       }
       for (let i = 0; i < themeColor2Elts.length; i++) {
         themeColor2Elts[i].style.backgroundColor = color2;
       }
       for (let i = 0; i < themeColor2TxtElts.length; i++) {
-        themeColor2Elts[i].style.color = color2;
+        themeColor2TxtElts[i].style.color = color2;
       }
 }
 

@@ -16,6 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
 
     <script src="https://kit.fontawesome.com/c397284221.js" crossorigin="anonymous"></script>
 
@@ -76,6 +77,12 @@
                     </form>
                     <!-- codes  here supplied via JS-->
 
+                    <div class="d-flex justify-content-around mb-4">
+                        <div class="p-1 themecolor1-text"><span class="text-light bg-dark p-1 rounded"> Total </span> <b class="ml-1 themecolor1-text"> 50</b></div>
+                        <div class="p-1 themecolor1-text"><span class="text-light bg-danger p-1 rounded"> Sans table </span><b class="ml-1 themecolor1-text"> 26</b></div>
+                        <div class="p-1 themecolor1-text"><span class="bg-success text-light p-1 rounded">Installés </span><b class="ml-1 themecolor1-text"> 14</b></div>
+                    </div>
+
                     <div class="row justify-content-center">
                         <button class="btn btn-outline-success addNewguest themecolor1" id="addNewguest1" data-toggle="modal" data-target="#addNewguestModal">Ajouter un invité</button>
                     </div>
@@ -91,15 +98,15 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>M. DJONKEP Salomon</td>
-                                        <td>Table 5: JOIE</td>
+                                        <td class="showGuestInfo" data-gid="1">M. DJONKEP Salomon</td>
+                                        <td class="showGuestInfo" data-gid="1">Table 5: JOIE</td>
                                         <td>
                                             <ul class="list-inline m-0">
                                                 <li class="list-inline-item btn-outline-success">
-                                                    <i class="fas fa-edit"></i>
+                                                    <i class="fas fa-edit editGuestInfo" data-gid="1"></i>
                                                 </li>
                                                 <li class="list-inline-item">
-                                                    <i class="fas fa-trash-alt btn-outline-danger"></i>
+                                                    <i class="fas fa-trash-alt btn-outline-danger deleteGuestInfo" data-gid="1"></i>
                                                 </li>
                                             </ul>
                                         </td>
@@ -253,6 +260,7 @@
         });
     </script>
     <!-- partial -->
+    <script src="./js/notify.min.js"></script>
     <script src="./js/global.js"></script>
     <script src="./js/guestsScript.js"></script>
 
