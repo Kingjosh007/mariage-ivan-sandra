@@ -38,7 +38,7 @@ function handleSubmit(event) {
     .then(data => {
         putData(apiLink + "ceremonySettings", newCeremonySettings)
         .then(data => {
-                showNotification("Informations mises à jour.", "bottom right", "success");
+                showNotification("Informations mises à jour.", "success", "bottom right");
                 getAndCacheVar("weddingInfos");
                 getAndCacheVar("ceremonySettings");
                 // location.reload();

@@ -66,7 +66,7 @@ function getFromLocalStorage(key) {
 }
 
 
-function showNotification(notificationMsg, notificationPos="bottom middle", notificationType="succes"){
+function showNotification(notificationMsg, notificationType="success", notificationPos="bottom center"){
     $.notify(notificationMsg, {
         className: notificationType,
         globalPosition: notificationPos
@@ -78,10 +78,8 @@ async function postData(url = '', data = {}) {
     const response = await fetch(url, {
       method: 'POST',
       mode: 'cors', 
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'omit',
+      headers: {"Content-type": "application/json; charset=UTF-8"},
+      credentials: 'include',
       body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
     return response.json(); // parses JSON response into native JavaScript objects
@@ -92,10 +90,8 @@ async function putData(url = '', data = {}) {
     const response = await fetch(url, {
       method: 'PUT',
       mode: 'cors', 
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'omit',
+      headers: {"Content-type": "application/json; charset=UTF-8"},
+      credentials: 'include',
       body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
     return response.json(); // parses JSON response into native JavaScript objects
