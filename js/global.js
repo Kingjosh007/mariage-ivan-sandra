@@ -114,7 +114,7 @@ async function deleteData(url = "", id) {
     for(key in data)
     {
         if(data.hasOwnProperty(key))
-            $('input[name='+key+']').val(data[key]);
+            $('[name='+key+']').val(data[key]);
     }
 }
 
@@ -142,24 +142,51 @@ function compareNames( a, b ) {
              if(g.hasOwnProperty("guestTableId"))
              {
                  let hisTable = allTables.find(t => t.id == g.guestTableId);
-                 if(!hisTable["tableGuestsIds"].includes(g.id))
+                 let autresTables = allTables.filter(t => t.id != hisTable.id && t["tableGuestsIds"].includes(g.id));
+                 if(!hisTable["tableGuestsIds"].includes(g.id) || (hisTable["tableGuestsIds"].includes(g.id) && autresTables.length > 0))
                  {
-                    let newT = {};
-                    problemsCount++;
-                    for(let k in hisTable)
+                    if(!hisTable["tableGuestsIds"].includes(g.id))
                     {
-                        if(k != "tableGuestsIds")
-                        newT[k] = hisTable[k];
-                    }
-                    let newTGI = hisTable["tableGuestsIds"];
-                    newTGI.push(g.id);
-                    newT["tableGuestsIds"] = newTGI;
-                    putData(apiLink + "tables/"+hisTable.id, newT)
-                    .then(dt => {
+                        let newT = {};
+                        problemsCount++;
+                        for(let k in hisTable)
+                        {
+                            if(k != "tableGuestsIds")
+                            newT[k] = hisTable[k];
+                        }
+                        let newTGI = hisTable["tableGuestsIds"];
+                        newTGI.push(g.id);
+                        newT["tableGuestsIds"] = newTGI;
+                        putData(apiLink + "tables/"+hisTable.id, newT)
+                        .then(dt => {
                             console.log("Règlement d'un conflit d'association invité->table");
                             problemsSolvedCount++;
-                    })
- 
+                        });
+                    }
+
+                    if(autresTables.length > 0)
+                        {
+                            for(let at of autresTables)
+                            {
+                                problemsCount++;
+                                let newAT = {};
+                                for(let ak in at)
+                                {
+                                    if(ak != "tableGuestsIds")
+                                    {
+                                        newAT[ak] = at[ak]
+                                    }
+                                }  
+                                let newATGI = at["tableGuestsIds"].filter(gidd => gidd != g.id)
+                                newAT["tableGuestsIds"] = newATGI;
+                                putData(apiLink + "tables/"+at.id, newAT)
+                                    .then(dt2 => {
+                                             problemsSolvedCount++;
+                                            console.log("Données dé-dupliquées!");
+                                        });
+                            }
+                            
+                        }
                  }
              }
          }
@@ -167,6 +194,7 @@ function compareNames( a, b ) {
          {
              let allAssociatedGuests = allGuests.filter(ag => t.tableGuestsIds.includes(ag.id));
              let allAssociatedGuestsWithConflict = allAssociatedGuests.filter(ag => !ag.hasOwnProperty("guestTableId") || ag.guestTableId != t.id);
+             let tableHasDuplicateGuest = t.tableGuestsIds.length != [...new Set(t.tableGuestsIds)].length
              if(allAssociatedGuestsWithConflict.length > 0)
              {
                 let newAssociatedGuests = allAssociatedGuestsWithConflict.map(ag => {
@@ -183,6 +211,17 @@ function compareNames( a, b ) {
                             problemsSolvedCount++;
                     })
                 }
+             }
+             if(tableHasDuplicateGuest)
+             {
+                 problemsCount++;
+                 let nT = t;
+                 nT["tableGuestsIds"] = [...new Set(t.tableGuestsIds)];
+                 putData(apiLink + "tables/"+t.id, nT)
+                .then(dt2 => {
+                    problemsSolvedCount++;
+                    console.log("Données dé-dupliquées!");
+                });
              }
              
          }

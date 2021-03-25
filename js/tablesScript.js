@@ -95,7 +95,7 @@ function displayAllTables(){
 
     if(allExistingTables.length > 0)
     {
-        document.querySelector("#msgBeforeTablesDisplay").innerHTML = "Cliquez sur une table pour voir/cacher les invités y destinés. La barre <div class='badge bg-warning'>orange</div> indique le niveau de réservation de la table <i>(par rapport au nombre de places total)</i>, tandis que la barre <div class='badge bg-success'>verte</div> indique le niveau de remplissage de la table <i>(en fonction des invités déjà installés sur la table pendant la cérémonie).</i>";
+        document.querySelector("#msgBeforeTablesDisplay").innerHTML = "Cliquez sur une table pour voir/cacher les invités y destinés. La barre <div class='badge bg-warning'>orange</div> indique le niveau de réservation de la table <i>(par rapport au nombre de places total)</i>, tandis que la barre <div class='badge bg-success'>verte</div> indique le niveau de remplissage relatif de la table <i>(invités déjà installés sur la table pendant la cérémonie par rapport au nombre d'invités affectés à la table).</i>";
         
         allExistingTables = allExistingTables.sort((a, b) => a.id - b.id);
         for(let table of allExistingTables)
@@ -127,13 +127,13 @@ function displayAllTables(){
                   </div>
                   <div class="row" style="vertical-align: middle;">
                       <div class="col-md-6 col-6 my-0">
-                          <div class="progress">
-                              <div class="progress-bar bg-warning text-dark" style="width:${tableReservedProgress}%; font-size: 1em;"></div>
+                          <div class="progress" style="border-radius: 10%">
+                              <div class="progress-bar bg-warning text-dark" style="width:${tableReservedProgress}%; font-size: 0.8em;"></div>
                             </div>
                       </div>
                       <div class="col-md-6 col-6 my-0">
-                          <div class="progress">
-                              <div class="progress-bar bg-success text-dark" style="width:${tableFullnessProgress}%; font-size: 1em;"></div>
+                          <div class="progress" style="border-radius: 10%">
+                              <div class="progress-bar bg-success text-dark" style="width:${tableFullnessProgress}%; font-size: 0.8em;"></div>
                             </div>
                       </div>
                   </div>
@@ -147,8 +147,15 @@ function displayAllTables(){
                   ${thisTableGuests.length == 0 ? "<li class='list-group-item'>Aucun invité enregistré à cette table pour le moment. <br> Cliquez sur l'icône <em>Stylo</em> pour modifier la table.</li>" : 
                         thisTableGuests.sort(compareNames).map((g, ind) => {
                             let ord = ind + 1;
-                            let faClass = g.guestGender == "F" ? "<i class='fas fa-female themecolor2-text themecolor1 rounded px-2 py-1'></i>" : "<i class='fas fa-male themecolor2-text themecolor1 rounded px-2 py-1'></i>"
-                            return "<li class='list-group-item'><span class='badge themecolor2 float-left themecolor1-text'>" + ord + "</span> <span class='ml-3'>" + faClass + "</span> <span class='ml-2'>" + g.guestTitle + " " + g.guestName + "</span></li>";
+                            let themeTextClass = "themecolor2-text";
+                            let themeClass = "themecolor2";
+                            if(g.hasOwnProperty("guestStatus") && g.guestStatus == "Installed")
+                            {
+                                themeClass = "bg-success";
+                                themeTextClass = "text-success";
+                            }
+                            let faClass = g.guestGender == "F" ? "<i class='fas fa-female " + themeTextClass + " themecolor1 rounded px-2 py-1'></i>" : "<i class='fas fa-male " + themeTextClass + " themecolor1 rounded px-2 py-1'></i>"
+                            return "<li class='list-group-item'><span class='badge " + themeClass + " float-left themecolor1-text'>" + ord + "</span> <span class='ml-3'>" + faClass + "</span> <span class='ml-2'>" + g.guestTitle + " " + g.guestName + "</span></li>";
                         }).join("")}
                       
                   </ul>
