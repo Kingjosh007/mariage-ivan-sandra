@@ -12,9 +12,12 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tagify/3.23.1/tagify.css" integrity="sha512-1CG2eaZ3B/p7OqthY2eBpVCD2A+0b2T7aEXfMnr4FqZFoKddxURdxcD8EcKI66qthtkGAWA/Hnwy7ceNHcHJKw==" crossorigin="anonymous" />
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin=" anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.2/bootbox.min.js"></script>
 
@@ -33,10 +36,10 @@
             <!-- this handles the sliding bars -->
             <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="fa fa-bars fa-2x"></i></a>
             <ul id="slide-out" class="side-nav">
-                <li><a href="./guests.html"><i class="fas fa-person-booth"> </i> Invités </a> </li>
-                <li><a href="./tables.html"><i class="fas fa-tablets"></i> Tables</a></li>
-                <li><a href="./settings.html"><i class="fa fa-cog"></i> Paramètres</a></li>
-                <li><a href="#aboutUsModal" class="modal-trigger" data-target="#aboutUsModal"><i class="fa fa-question-circle-o"></i> À propos </a></li>
+                <li class="themecolor2"><a href="#"><i class="fas fa-person-booth"> </i> Invités </a> </li>
+                <li class="themecolor2"><a href="./tables.html"><i class="fas fa-tablets"></i> Tables</a></li>
+                <li class="themecolor2"><a href="./settings.html"><i class="fa fa-cog"></i> Paramètres</a></li>
+                <li class="themecolor2"><a href="#aboutUsModal" class="modal-trigger" data-target="#aboutUsModal"><i class="fa fa-question-circle-o"></i> À propos </a></li>
             </ul>
             <!-- this handles the full-width navbar -->
 
@@ -44,7 +47,7 @@
 
             </div>
             <ul id="nav-mobile" class="right hide-on-med-and-down lighten-1 themecolor2">
-                <li class=""><a href="#"><i class="fa fa-list"> </i> Invités</a></li>
+                <li><a href="#"><i class="fa fa-list"> </i> Invités</a></li>
                 <li><a href="./tables.html"><i class="fas fa-tablets"></i> Tables</a></li>
                 <li><a href="./settings.html"><i class="fa fa-cog"></i> Paramètres </a></li>
             </ul>
@@ -72,90 +75,37 @@
                 <div class="card-body text-primary" id="guestDashboard">
                     <form>
                         <div class="input-field">
-                            <input id="search" type="search" required class="autocomplete" placeholder="Rechercher dans la liste...">
+                            <input id="searchGuestInput" type="search" required class="autocomplete" placeholder="Rechercher dans la liste..." style="font-size: 1.1em;">
                         </div>
                     </form>
                     <!-- codes  here supplied via JS-->
 
                     <div class="d-flex justify-content-around mb-4">
-                        <div class="p-1 themecolor1-text"><span class="text-light bg-dark p-1 rounded"> Total </span> <b class="ml-1 themecolor1-text"> 50</b></div>
-                        <div class="p-1 themecolor1-text"><span class="text-light bg-danger p-1 rounded"> Sans table </span><b class="ml-1 themecolor1-text"> 26</b></div>
-                        <div class="p-1 themecolor1-text"><span class="bg-success text-light p-1 rounded">Installés </span><b class="ml-1 themecolor1-text"> 14</b></div>
+                        <div class="p-1 themecolor1-text"><span class="text-light bg-dark p-1 rounded"> Total </span> <b class="ml-1 themecolor1-text" id="totalGuestsNb"> 0</b></div>
+                        <div class="p-1 themecolor1-text"><span class="text-light bg-danger p-1 rounded"> Sans table </span><b class="ml-1 themecolor1-text" id="guestsWithoutTableNb"> 0</b></div>
+                        <div class="p-1 themecolor1-text"><span class="bg-success text-light p-1 rounded">Installés </span><b class="ml-1 themecolor1-text" id="guestsInstalledNb"> 0</b></div>
                     </div>
 
                     <div class="row justify-content-center">
-                        <button class="btn btn-outline-success addNewguest themecolor1" id="addNewguest1" data-toggle="modal" data-target="#addNewguestModal">Ajouter un invité</button>
+                        <button class="btn btn-outline-success addNewguest themecolor1" id="addNewGuestBtn" data-toggle="modal" data-target="#addNewguestModal">Ajouter un invité</button>
+                    </div>
+                    <div class="themecolor1-text container mt-4 mb-4 text-justify" id="msgBeforeGuestsDisplay"> 
+                        Cliquez sur le nom d'un invité pour plus d'informations.
+                         Vous pouvez modifier (<i class="fas fa-edit btn-outline-warning"></i>), supprimer (<i class="fas fa-trash-alt btn-outline-danger"></i>) ou signaler que l'invité est présent et installé à la table prévue (<i class="fas fa-check btn-outline-success"></i>).
+
+                         <p>Cliquez sur <b>Nom</b> pour afficher les invités dans l'ordre alphabétique, ou sur <b>Table</b> pour les afficher par ordre de table.</p>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-auto my-2">
                             <table class="table table-responsive">
                                 <thead>
                                     <tr>
-                                        <th>Nom</th>
-                                        <th>Table</th>
+                                        <th id="sortByNameTrigger">Nom</th>
+                                        <th id="sortByTableTrigger">Table</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="showGuestInfo" data-gid="1">M. DJONKEP Salomon</td>
-                                        <td class="showGuestInfo" data-gid="1">Table 5: JOIE</td>
-                                        <td>
-                                            <ul class="list-inline m-0">
-                                                <li class="list-inline-item btn-outline-success">
-                                                    <i class="fas fa-edit editGuestInfo" data-gid="1"></i>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <i class="fas fa-trash-alt btn-outline-danger deleteGuestInfo" data-gid="1"></i>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="table-success">
-                                        <td>Mme NANKAM Gabrielle</td>
-                                        <td>Table 3: PAIX</td>
-                                        <td>
-                                            <ul class="list-inline m-0">
-                                                <li class="list-inline-item btn-outline-success">
-                                                    <i class="fas fa-edit"></i>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <i class="fas fa-trash-alt btn-outline-danger"></i>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr class="table-danger">
-                                        <td>NOM hasardeux</td>
-                                        <td>Table 8: SERVICE</td>
-                                        <td>
-                                            <ul class="list-inline m-0">
-                                                <li class="list-inline-item btn-outline-success">
-                                                    <i class="fas fa-edit"></i>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <i class="fas fa-trash-alt btn-outline-danger"></i>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-
-                                    </tr>
-                                    <tr class="table-warning">
-                                        <td>Warning</td>
-                                        <td>Refs</td>
-                                        <td>
-                                            <ul class="list-inline m-0">
-                                                <li class="list-inline-item btn-outline-success">
-                                                    <i class="fas fa-edit"></i>
-                                                </li>
-                                                <li class="list-inline-item">
-                                                    <i class="fas fa-trash-alt btn-outline-danger"></i>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
+                                <tbody id="tableBody">
                                 </tbody>
                             </table>
                         </div>
@@ -173,24 +123,23 @@
                     </div>
                     <!-- body of the modal -->
                     <div class="modal-body white">
-                        <form class="form-horizontal" role="form" id="modalForm">
+                        <form class="form-horizontal" role="form" id="addGuestForm" method="post">
 
                             <div class="form-group mb-4">
-                                <label for="guestTitle" class="themecolor1-text">Titre</label>
-                                <select id="guestTitle" class="custom-select">
+                                <label for="guestTitle" class="themecolor2-text">Titre</label>
+                                <select name="guestTitle" id="guestTitle" class="custom-select">
                                     <option value="M.">Monsieur</option>
                                     <option value="Mme">Madame</option>
-                                    <option value="Mme">Mademoiselle</option>
-                                    <option value="Autre">Autre</option>
+                                    <option value="Mlle">Mademoiselle</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="guestName" class="themecolor1-text">NOM et Prénom</label>
-                                <input id="guestName" type="text" style="font-size: 1.1em;" />
+                                <label for="guestName" class="themecolor2-text">NOM et Prénom</label>
+                                <input name="guestName" id="guestName" type="text" style="font-size: 1.1em;" />
                             </div>
                             <div class="form-group mb-4">
-                                <label for="guestCategory">Catégorie</label>
-                                <select id="guestCategory" class="custom-select">
+                                <label for="guestCategory" class="themecolor2-text">Catégorie</label>
+                                <select name="guestCategory" id="guestCategory" class="custom-select">
                                     <optgroup label="Invités du marié">
                                     <option value="ManCloseFam">Famille proche du marié</option>
                                     <option value="ManBroadFam">Famille large du marié</option>
@@ -216,8 +165,8 @@
                             </div>
 
                             <div class="form-group mb-4" id="chooseGuestTable">
-                                <label for="guestTable">Table réservée</label>
-                                <select id="guestTable" class="custom-select">
+                                <label for="guestTable" class="themecolor2-text">Table réservée</label>
+                                <select name="guestTable" id="guestTable" class="custom-select">
                                     
                                     <option value="1">Table 1: AMOUR</option>
                                     <option value="2">Table 2: FRATERNITE</option>
@@ -226,13 +175,13 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="guestDescription">Notes sur l'invité (éventuellement)</label>
-                                <textarea id="guestDescription" type="text" style="height: 50px"></textarea>
+                                <label for="guestDescription" class="themecolor2-text">Notes sur l'invité (éventuellement)</label>
+                                <textarea name="guestDescription" id="guestDescription" type="text" style="height: 50px"></textarea>
                             </div>
                             <div class="modal-footer align-content-center" id="modalFooter">
                                 <button type="button" class="btn btn-outline-danger btn-sm m-2" data-dismiss="modal" id="modalClose"><i class="fa fa-close"></i> Fermer
               </button>
-                                <button type="button" class="btn btn-outline-success btn-sm m-2" id="modalSubmit"><i class="fa fa-save"></i> OK</button>
+                                <button type="submit" class="btn btn-outline-success btn-sm m-2" id="saveGuestBtn"><i class="fa fa-save"></i> Enregistrer</button>
                             </div>
                         </form>
                     </div>
@@ -251,16 +200,14 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin=" anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <!-- <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js'></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $(".button-collapse").sideNav();
-            $("#aboutUsModal").modal();
-        });
-    </script>
+
     <!-- partial -->
+
     <script src="./js/notify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tagify/3.23.1/tagify.min.js" integrity="sha512-jb/SYEPmc1tGaJ3Yu6CZaOBhn8sqTpgTqVcXUm4udHGaUsBIOj6DsIc6aXZpsvXhtexnmIowmOVBHKuIwyB2Rw==" crossorigin="anonymous"></script>
+   
     <script src="./js/global.js"></script>
     <script src="./js/guestsScript.js"></script>
 

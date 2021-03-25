@@ -1,13 +1,6 @@
 const btnSave = document.getElementById("btnSaveModifs");
 
 
-function prefillForm(data){
-    for(key in data)
-    {
-        if(data.hasOwnProperty(key))
-            $('input[name='+key+']').val(data[key]);
-    }
-}
 function handleSubmit(event) {
     event.preventDefault();
 
@@ -23,6 +16,8 @@ function handleSubmit(event) {
         "weddingVenue": value["weddingVenue"]
     };
 
+    console.log(newWeddingInfos);
+
     let newCeremonySettings = {};
     for(let k in value)
         if(!newWeddingInfos.hasOwnProperty(k))
@@ -37,20 +32,77 @@ function handleSubmit(event) {
     putData(apiLink + "weddingInfos", newWeddingInfos)
     .then(data => {
         putData(apiLink + "ceremonySettings", newCeremonySettings)
-        .then(data => {
+        .then(dt => {
                 showNotification("Informations mises à jour.", "success", "bottom right");
                 getAndCacheVar("weddingInfos");
                 getAndCacheVar("ceremonySettings");
-                // location.reload();
         });
     });
+
+    // Création des tables par défaut.
+    let availableTables = getFromLocalStorage("tables");
+    let tablesACreer = [];
+    if(!(availableTables == null))
+    {
+        for(let i=1; i<=newCeremonySettings["nbTables"]; i++)
+        {
+            if(availableTables.filter(t => t["id"] == i).length == 0)
+            {
+                tablesACreer.push({
+                    id: i,
+                    tableName: defaultTableName,
+                    tableMaxSeats: newCeremonySettings["maxGuestsPerTable"],
+                    tableGuestsIds: []
+                })
+            }
+        }
+    }
+    else
+    {
+        for(let i=1; i<=newCeremonySettings["nbTables"]; i++)
+        {
+            
+                tablesACreer.push({
+                    id: i,
+                    tableName: defaultTableName,
+                    tableMaxSeats: newCeremonySettings["maxGuestsPerTable"],
+                    tableGuestsIds: []
+                });
+            
+        }
+    }
+    for(let i=0; i<tablesACreer.length; i++)
+    {
+        postData(apiLink + "tables", tablesACreer[i])
+        .then(data => {
+            console.log("Création de la table " + data["id"] + " avec les paramètres par défaut.");
+        })
+    }
+    if(tablesACreer.length > 0)
+        showNotification("Création de " + tablesACreer.length + " nouvelles tables par défaut.", "success", "bottom left");
+
+    setTimeout(function(){ 
+        getAndCacheVar("tables");
+        getAndCacheVar("guests");
+        location.reload();
+     }, 4000);
     
 }
 
 
 $(document).ready(function() {
+
+    $(".button-collapse").sideNav();
+            $("#aboutUsModal").modal();
+
     const form = document.querySelector('form');
     form.addEventListener('submit', handleSubmit);
+
+    setTimeout(() => {
+        updateColorThemes();
+    updateWeddingsInfos();
+    }, 1000)
+    
 
     // Initialisation du formulaire
 
@@ -73,7 +125,6 @@ $(document).ready(function() {
                     getAndCacheVar(route);
         }
 
-        updateColorThemes();
-        updateWeddingsInfos();
+        
 
 });

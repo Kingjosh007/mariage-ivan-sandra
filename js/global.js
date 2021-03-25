@@ -10,6 +10,8 @@ var majorRoutes = ["weddingInfos", "ceremonySettings", "guests", "tables"];
 
 let weddingInfos = {};
 
+var defaultTableName = "SANS NOM";
+
 function getAndCacheVar(varName)
 {
     fetch(apiLink + "" + varName)
@@ -74,25 +76,118 @@ function showNotification(notificationMsg, notificationType="success", notificat
 }
 
 // Example POST method implementation:
-async function postData(url = '', data = {}) {
+async function postData(url = "", data = {}) {
     const response = await fetch(url, {
       method: 'POST',
       mode: 'cors', 
-      headers: {"Content-type": "application/json; charset=UTF-8"},
-      credentials: 'include',
+      headers: {
+          "Content-type": "application/json"},
       body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
     return response.json(); // parses JSON response into native JavaScript objects
   }
 
 // Example PUT method implementation:
-async function putData(url = '', data = {}) {
+async function putData(url = "", data = {}) {
     const response = await fetch(url, {
       method: 'PUT',
       mode: 'cors', 
-      headers: {"Content-type": "application/json; charset=UTF-8"},
-      credentials: 'include',
+      headers: {"Content-type": "application/json"},
+      credentials: 'omit',
       body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
     return response.json(); // parses JSON response into native JavaScript objects
+  }
+
+// Example DELETE method implementation:
+async function deleteData(url = "", id) {
+    const response = await fetch(url+"/"+id, {
+      method: 'DELETE',
+      mode: 'cors', 
+      headers: {"Content-type": "application/json"},
+      credentials: 'omit'
+    });
+    return response.json(); // parses JSON response into native JavaScript objects
+  }
+
+  function prefillForm(data){
+    for(key in data)
+    {
+        if(data.hasOwnProperty(key))
+            $('input[name='+key+']').val(data[key]);
+    }
+}
+
+function compareNames( a, b ) {
+    if ( a.guestName < b.guestName ){
+      return -1;
+    }
+    if ( a.guestName > b.guestName ){
+      return 1;
+    }
+    return 0;
+  }
+
+  function solveTableMatchingConflicts(){
+      getAndCacheVar("guests");
+      getAndCacheVar("tables");
+      let allGuests = getFromLocalStorage("guests");
+      let allTables = getFromLocalStorage("tables");
+      let problemsCount = 0;
+      let problemsSolvedCount = 0;
+      if(allGuests != null && allTables != null && allGuests.length > 0 && allTables.length > 0)
+      {
+         for(let g of allGuests)
+         {
+             if(g.hasOwnProperty("guestTableId"))
+             {
+                 let hisTable = allTables.find(t => t.id == g.guestTableId);
+                 if(!hisTable["tableGuestsIds"].includes(g.id))
+                 {
+                    let newT = {};
+                    problemsCount++;
+                    for(let k in hisTable)
+                    {
+                        if(k != "tableGuestsIds")
+                        newT[k] = hisTable[k];
+                    }
+                    let newTGI = hisTable["tableGuestsIds"];
+                    newTGI.push(g.id);
+                    newT["tableGuestsIds"] = newTGI;
+                    putData(apiLink + "tables/"+hisTable.id, newT)
+                    .then(dt => {
+                            console.log("Règlement d'un conflit d'association invité->table");
+                            problemsSolvedCount++;
+                    })
+ 
+                 }
+             }
+         }
+         for(let t of allTables)
+         {
+             let allAssociatedGuests = allGuests.filter(ag => t.tableGuestsIds.includes(ag.id));
+             let allAssociatedGuestsWithConflict = allAssociatedGuests.filter(ag => !ag.hasOwnProperty("guestTableId") || ag.guestTableId != t.id);
+             if(allAssociatedGuestsWithConflict.length > 0)
+             {
+                let newAssociatedGuests = allAssociatedGuestsWithConflict.map(ag => {
+                    let newAg = ag;
+                    newAg["guestTableId"] = t.id;
+                    return newAg;
+                });
+                for(let nag of newAssociatedGuests)
+                {
+                    problemsCount++;
+                    putData(apiLink + "guests/"+nag.id, nag)
+                    .then(dt => {
+                            console.log("Règlement d'un conflit d'association table->invité");
+                            problemsSolvedCount++;
+                    })
+                }
+             }
+             
+         }
+         console.log("Règlement de " + problemsSolvedCount + " problèmes " + " d'association de tables sur " + problemsCount + " rencontrés");
+      }
+      getAndCacheVar("guests");
+      getAndCacheVar("tables");
   }
