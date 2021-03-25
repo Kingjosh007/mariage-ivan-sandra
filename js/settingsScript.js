@@ -81,9 +81,10 @@ function handleSubmit(event) {
     if(tablesACreer.length > 0)
         showNotification("Création de " + tablesACreer.length + " nouvelles tables par défaut.", "success", "bottom left");
 
+    getAndCacheVar("tables");
+    getAndCacheVar("guests");
+
     setTimeout(function(){ 
-        getAndCacheVar("tables");
-        getAndCacheVar("guests");
         location.reload();
      }, 4000);
     
@@ -97,6 +98,14 @@ $(document).ready(function() {
 
     const form = document.querySelector('form');
     form.addEventListener('submit', handleSubmit);
+
+    for(let route of majorRoutes)
+        {
+            if(["guests", "tables"].includes(route) && getFromLocalStorage(route) == null)
+                    getAndCacheVar(route);
+            if(["ceremonySettings", "weddingInfos"].includes(route) && getFromLocalStorage(route) == null)
+                    getAndCacheVar(route);
+        }
 
     setTimeout(() => {
         updateColorThemes();
@@ -116,14 +125,6 @@ $(document).ready(function() {
         dataToPrefill[k] = ceremonySettings[k];
     
     prefillForm(dataToPrefill);
-
-        for(let route of majorRoutes)
-        {
-            if(["guests", "tables"].includes(route) && getFromLocalStorage(route) == null)
-                    getAndCacheVar(route);
-            if(["ceremonySettings", "weddingInfos"].includes(route) && getFromLocalStorage(route) == null)
-                    getAndCacheVar(route);
-        }
 
         
 
